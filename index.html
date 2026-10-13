@@ -55,7 +55,7 @@
         <button class="linklike" data-example="https://www.scribd.com/document/608419266/Q1-MIL-Revised-M1-Week-1-2">Try a sample document</button>
       </div>
       <div class="trust-row">
-        <span>✓ Image PDF</span><span>✓ Searchable text PDF</span><span>✓ Hybrid full render</span>
+        <span>✓ Searchable text PDF</span><span>✓ Full render PDF</span>
       </div>
     </div>
   </section>
@@ -87,10 +87,8 @@
         <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
         <p class="status-msg" id="status-msg">Paste a Scribd URL above and press Extract.</p>
         <div class="results hidden" id="results">
-          <a class="dl" href="#" id="dl-pdf">⬇ Image PDF</a>
-          <a class="dl" href="#" id="dl-text">⬇ Text PDF</a>
           <a class="dl" href="#" id="dl-full">⬇ Full PDF</a>
-          <a class="dl dl-ghost" href="#" id="dl-txt">⬇ decoded.txt</a>
+          <a class="dl dl-ghost" href="#" id="dl-text">⬇ Text PDF</a>
         </div>
       </section>
 
@@ -99,7 +97,7 @@
         <div class="how-grid">
           <div><b>1. Paste link</b><p>Any public <code>scribd.com/document/…</code> URL.</p></div>
           <div><b>2. Watch ad</b><p>One short inline sponsor message unlocks the extract. No popups, no new tabs.</p></div>
-          <div><b>3. Download</b><p>Get image PDF, searchable text PDF, and hybrid full render.</p></div>
+          <div><b>3. Download</b><p>Get the searchable text PDF and the full render PDF.</p></div>
         </div>
       </section>
 
@@ -114,8 +112,7 @@
       <section class="card" id="faq">
         <h2>FAQ</h2>
         <details open><summary>Is it free?</summary><p>Yes. Each extraction is unlocked by watching one short inline ad.</p></details>
-        <details><summary>Do you open popups?</summary><p>No. All sponsor slots are inline banner / rewarded units on this page. We never call <code>window.open</code>.</p></details>
-        <details><summary>Where do I put my ad codes?</summary><p>Search this file for <code>data-ad=</code> — paste your AdSense / GAM tags inside each <code>.ad-box</code>.</p></details>
+        <details><summary>Do you open popups?</summary><p>No. All sponsor slots are inline on this page.</p></details>
       </section>
     </div>
 
@@ -161,8 +158,7 @@
       <!-- REAL AD TAG GOES HERE. Placeholder creative below is demo only. -->
       <div class="reward-demo" id="reward-demo">
         <span class="ad-label">Sponsored</span>
-        <p class="reward-brand">✨ Your Ad Here — 300×250 rewarded demo ✨</p>
-        <p class="muted small">Replace with your ad tag inside #rewarded-ad-slot (see app.js).</p>
+        <p class="reward-brand">✨ Your Ad Here ✨</p>
       </div>
       <div class="reward-progress"><div id="reward-fill"></div></div>
     </div>

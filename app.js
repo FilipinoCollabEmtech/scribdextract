@@ -167,9 +167,10 @@ async function pollJob(id) {
 }
 
 function wireResults(files) {
-  const map = { "dl-pdf": files.pdf, "dl-text": files.textPdf, "dl-full": files.fullPdf, "dl-txt": files.txt };
+  const map = { "dl-full": files.fullPdf, "dl-text": files.textPdf };
   for (const [id, href] of Object.entries(map)) {
     const a = document.getElementById(id);
+    if (!a) continue;
     if (href) { a.href = absUrl(href); a.removeAttribute("aria-disabled"); }
     else { a.href = "#"; a.setAttribute("aria-disabled", "true"); }
   }
