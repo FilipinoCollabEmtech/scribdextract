@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 jobs/
 *.log
+# PyInstaller build outputs (rebuild locally, don't commit binaries)
+dist/
+build/
+*.spec
