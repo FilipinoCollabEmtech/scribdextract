@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Scribd Extractor — Extract Scribd Documents to PDF + Text</title>
+<meta name="description" content="Paste a Scribd link, watch a short ad, get PDF + searchable text. Free online Scribd extractor." />
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ══════════ TOP LEADERBOARD BANNER SLOT (970x90 / 728x90 / 320x50 responsive) ══
+     Paste your ad network tag inside .ad-box below. Inline only — no popups. -->
+<div class="ad-leaderboard-wrap">
+  <div class="ad-slot ad-leaderboard" data-ad="header-banner">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-box" id="ad-header">
+      <!-- EXAMPLE: <ins class="adsbygoogle" data-ad-client="..." data-ad-slot="..."></ins> -->
+      <span class="ad-placeholder">728 × 90 — Header Banner</span>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">📄 <b>Scribd</b>Extract</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#examples">Examples</a>
+    </nav>
+    <a class="btn btn-small btn-ghost" href="#extract">Extract now</a>
+  </div>
+</header>
+
+<main>
+  <!-- ══════════ HERO (SimpleScraper-style) ══════════ -->
+  <section class="hero" id="extract">
+    <div class="hero-inner">
+      <div class="pill">Free online tool • No signup</div>
+      <h1>Free Scribd Extractor</h1>
+      <p class="sub">Paste any public Scribd document link and extract it to <b>PDF + searchable text</b> instantly. Just watch one short ad to unlock each extraction.</p>
+
+      <form id="extract-form" class="extract-bar" autocomplete="off">
+        <span class="link-icon">🔗</span>
+        <input id="scribd-url" type="url" inputmode="url"
+          placeholder="https://www.scribd.com/document/…"
+          required />
+        <button class="btn btn-primary" type="submit" id="extract-btn">Extract →</button>
+      </form>
+      <div class="try-row">
+        <span>No link handy?</span>
+        <button class="linklike" data-example="https://www.scribd.com/document/608419266/Q1-MIL-Revised-M1-Week-1-2">Try a sample document</button>
+      </div>
+      <div class="trust-row">
+        <span>✓ Image PDF</span><span>✓ Searchable text PDF</span><span>✓ Hybrid full render</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ IN-CONTENT BANNER SLOT ══════════ -->
+  <div class="ad-slot ad-incontent" data-ad="in-content">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-box" id="ad-incontent">
+      <span class="ad-placeholder">Responsive — In-content Banner</span>
+    </div>
+  </div>
+
+  <section class="layout">
+    <div class="main-col">
+
+      <!-- STATUS / RESULTS CARD -->
+      <section class="card" id="status-card" aria-live="polite">
+        <div class="card-head">
+          <h2>Extraction</h2>
+          <span class="status-badge" id="status-badge">Idle</span>
+        </div>
+        <ol class="steps" id="steps-list">
+          <li data-step="fetch"><span class="dot"></span>Fetch pages</li>
+          <li data-step="decode"><span class="dot"></span>Decode text</li>
+          <li data-step="text"><span class="dot"></span>Build text PDF</li>
+          <li data-step="download"><span class="dot"></span>Download slices</li>
+          <li data-step="render"><span class="dot"></span>Render full PDF</li>
+        </ol>
+        <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        <p class="status-msg" id="status-msg">Paste a Scribd URL above and press Extract.</p>
+        <div class="results hidden" id="results">
+          <a class="dl" href="#" id="dl-pdf">⬇ Image PDF</a>
+          <a class="dl" href="#" id="dl-text">⬇ Text PDF</a>
+          <a class="dl" href="#" id="dl-full">⬇ Full PDF</a>
+          <a class="dl dl-ghost" href="#" id="dl-txt">⬇ decoded.txt</a>
+        </div>
+      </section>
+
+      <section class="card" id="how">
+        <h2>How it works</h2>
+        <div class="how-grid">
+          <div><b>1. Paste link</b><p>Any public <code>scribd.com/document/…</code> URL.</p></div>
+          <div><b>2. Watch ad</b><p>One short inline sponsor message unlocks the extract. No popups, no new tabs.</p></div>
+          <div><b>3. Download</b><p>Get image PDF, searchable text PDF, and hybrid full render.</p></div>
+        </div>
+      </section>
+
+      <section class="card" id="examples">
+        <h2>Examples</h2>
+        <ul class="examples">
+          <li><button class="linklike" data-example="https://www.scribd.com/document/468674367/MODULE-EAPP">MODULE-EAPP (33 pages, scrambled font demo)</button></li>
+          <li><button class="linklike" data-example="https://www.scribd.com/document/608419266/Q1-MIL-Revised-M1-Week-1-2">Q1 MIL M1 (17 pages, plain text layer)</button></li>
+        </ul>
+      </section>
+
+      <section class="card" id="faq">
+        <h2>FAQ</h2>
+        <details open><summary>Is it free?</summary><p>Yes. Each extraction is unlocked by watching one short inline ad.</p></details>
+        <details><summary>Do you open popups?</summary><p>No. All sponsor slots are inline banner / rewarded units on this page. We never call <code>window.open</code>.</p></details>
+        <details><summary>Where do I put my ad codes?</summary><p>Search this file for <code>data-ad=</code> — paste your AdSense / GAM tags inside each <code>.ad-box</code>.</p></details>
+      </section>
+    </div>
+
+    <!-- ══════════ SIDEBAR RECTANGLE SLOT (300x250 / 300x600 sticky) ══════════ -->
+    <aside class="side-col">
+      <div class="ad-slot ad-sidebar" data-ad="sidebar">
+        <span class="ad-label">Advertisement</span>
+        <div class="ad-box ad-box-tall" id="ad-sidebar">
+          <span class="ad-placeholder">300 × 250<br>Sidebar</span>
+        </div>
+      </div>
+      <div class="card mini">
+        <b>Why an ad?</b>
+        <p>Fetching + rendering Scribd pages costs bandwidth. One inline ad per extract keeps this tool free.</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ══════════ FOOTER BANNER SLOT ══════════ -->
+  <div class="ad-slot ad-footer" data-ad="footer-banner">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-box" id="ad-footer">
+      <span class="ad-placeholder">Responsive — Footer Banner</span>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <span>ScribdExtract Web • For public documents only. Respect copyright.</span>
+</footer>
+
+<!-- ══════════ REWARDED AD MODAL (inline, NO popups) ══════════
+     Flow: Extract click → modal opens → user presses Play →
+     inline creative plays + countdown → reward granted → extraction runs.
+     To use a real network, replace simulateRewardedAd() in app.js with
+     your rewarded unit (e.g. AdSense rewarded / custom video tag)
+     rendering into #rewarded-ad-slot. Keep everything in-page. -->
+<div class="modal-backdrop hidden" id="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-title">
+  <div class="modal">
+    <h3 id="reward-title">🎬 Watch a short ad to unlock extraction</h3>
+    <p class="muted">No popups — the sponsor plays right here. <span id="reward-count">Reward in 0:05</span></p>
+    <div class="reward-slot" id="rewarded-ad-slot">
+      <!-- REAL AD TAG GOES HERE. Placeholder creative below is demo only. -->
+      <div class="reward-demo" id="reward-demo">
+        <span class="ad-label">Sponsored</span>
+        <p class="reward-brand">✨ Your Ad Here — 300×250 rewarded demo ✨</p>
+        <p class="muted small">Replace with your ad tag inside #rewarded-ad-slot (see app.js).</p>
+      </div>
+      <div class="reward-progress"><div id="reward-fill"></div></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="reward-cancel">Cancel</button>
+      <button class="btn btn-primary" id="reward-play">▶ Play ad</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

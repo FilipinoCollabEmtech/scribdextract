@@ -1,0 +1,109 @@
+/* ScribdExtract Web — SimpleScraper-inspired, fully responsive */
+:root{
+  --bg:#f6f7fb; --card:#fff; --ink:#111827; --muted:#6b7280;
+  --brand:#2563eb; --brand-d:#1d4ed8; --line:#e5e7eb; --radius:14px;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--brand)}
+
+/* ── Ad slots (inline only) ── */
+.ad-slot{max-width:var(--max);margin:12px auto;padding:0 16px;text-align:center}
+.ad-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ad-box{background:#eef0f5;border:1px dashed #c3c9d6;border-radius:10px;min-height:90px;
+  display:flex;align-items:center;justify-content:center;color:#8a93a6;font-size:13px}
+.ad-box-tall{min-height:250px}
+.ad-leaderboard-wrap{background:#fff;border-bottom:1px solid var(--line)}
+.ad-leaderboard-wrap .ad-slot{margin:0 auto;padding:8px 16px}
+.ad-leaderboard-wrap .ad-box{min-height:60px}
+
+/* ── Nav ── */
+.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav-inner{max-width:var(--max);margin:auto;padding:12px 16px;display:flex;align-items:center;gap:20px}
+.logo{text-decoration:none;color:var(--ink);font-size:18px}
+.nav-links{margin-left:auto;display:flex;gap:16px}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:14px}
+.nav-links a:hover{color:var(--ink)}
+
+/* ── Buttons ── */
+.btn{border:0;border-radius:10px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:15px}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:var(--brand-d)}
+.btn-primary:disabled{opacity:.6;cursor:wait}
+.btn-small{padding:8px 14px;font-size:13px;text-decoration:none}
+.btn-ghost{background:#eef2ff;color:var(--brand)}
+.linklike{background:none;border:0;color:var(--brand);cursor:pointer;font-size:14px;text-decoration:underline;padding:0}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(180deg,#fff, #eef4ff);border-bottom:1px solid var(--line);padding:48px 16px 36px;text-align:center}
+.hero-inner{max-width:720px;margin:auto}
+.pill{display:inline-block;background:#e0e9ff;color:#1e40af;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{font-size:clamp(28px,5vw,44px);margin:8px 0;letter-spacing:-.02em}
+.sub{color:#374151;font-size:clamp(14px,2.5vw,17px)}
+.extract-bar{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:8px;padding:8px;box-shadow:0 8px 24px rgba(37,99,235,.08)}
+.link-icon{padding-left:10px}
+.extract-bar input{flex:1;border:0;outline:0;font-size:15px;padding:12px 8px;min-width:0}
+.try-row{margin-top:12px;color:var(--muted);font-size:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.trust-row{margin-top:14px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;color:#15803d;font-size:13px;font-weight:600}
+
+/* ── Layout ── */
+.layout{max-width:var(--max);margin:20px auto;padding:0 16px;display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.card h2{margin:0 0 12px;font-size:18px}
+.card-head{display:flex;align-items:center;justify-content:space-between}
+.status-badge{background:#fef3c7;color:#92400e;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+.status-badge.busy{background:#dbeafe;color:#1d4ed8}
+.status-badge.done{background:#dcfce7;color:#166534}
+.status-badge.error{background:#fee2e2;color:#991b1b}
+.steps{list-style:none;margin:12px 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.steps li{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.steps .dot{width:10px;height:10px;border-radius:50%;background:#d1d5db;flex:none}
+.steps li.active .dot{background:var(--brand)}
+.steps li.done .dot{background:#16a34a}
+.progress{background:#eef0f5;border-radius:999px;height:8px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--brand);transition:width .4s}
+.status-msg{color:var(--muted);font-size:14px}
+.results{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.results.hidden,.hidden{display:none!important}
+.dl{background:#16a34a;color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px;font-weight:700;font-size:14px}
+.dl-ghost{background:#eef2ff;color:var(--brand)}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.how-grid p{color:var(--muted);font-size:14px}
+.examples{margin:0;padding-left:18px}
+.examples li{margin:6px 0}
+details{border-top:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--muted)}
+.side-col{position:sticky;top:70px}
+.side-col .ad-slot{padding:0;margin:0 0 16px}
+.mini p{color:var(--muted);font-size:14px}
+.footer{text-align:center;color:var(--muted);font-size:13px;padding:24px 16px 60px}
+
+/* ── Rewarded modal ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(17,24,39,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:24px}
+.modal h3{margin:0 0 6px}
+.muted{color:var(--muted)}.small{font-size:12px}
+.reward-slot{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0}
+.reward-demo{background:#0f172a;color:#e2e8f0;text-align:center;padding:40px 20px;position:relative}
+.reward-brand{font-size:18px;font-weight:800}
+.reward-progress{height:6px;background:#e5e7eb}
+.reward-progress div{height:100%;width:0;background:#16a34a}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+
+/* ── Responsive: any size device ── */
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+  .side-col{position:static}
+  .side-col .ad-slot{max-width:100%}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none} /* keep header clean on mobile */
+}
+@media (max-width:560px){
+  .extract-bar{flex-direction:column;align-items:stretch}
+  .extract-bar input{text-align:center}
+  .btn{width:100%}
+  .how-grid{grid-template-columns:1fr}
+  .hero{padding:32px 12px}
+}
