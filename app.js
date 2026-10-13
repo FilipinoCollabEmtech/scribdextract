@@ -2,10 +2,9 @@
  * Flow: submit → rewarded inline ad → POST /api/extract → poll → downloads
  * NO popups: never window.open. Ads render inline in .ad-box / #rewarded-ad-slot.
  *
- * Option B (local PC = server, Netlify = static UI):
- *   Backend URL resolves as: ?api= query param > localStorage > window.SCRIBD_API_BASE > same origin.
- *   Just open https://your-site.netlify.app/?api=https://<tunnel>.trycloudflare.com once —
- *   it is remembered. Console: setScribdApi(url) / getScribdApi().
+ * Backend URL resolves as: ?api= query param > localStorage >
+ *   window.SCRIBD_API_BASE > baked-in default (ngrok static domain) > same origin.
+ *   Visitors just open the plain Netlify URL; ?api= is admin override only.
  */
 const API_BASE = (() => {
   const clean = u => (u || "").trim().replace(/\/+$/, "");
@@ -15,7 +14,7 @@ const API_BASE = (() => {
     const s = localStorage.getItem("scribd_api");
     if (s) return clean(s);
   } catch (_) {}
-  return clean(window.SCRIBD_API_BASE || "");
+  return clean(window.SCRIBD_API_BASE || "https://lettuce-collision-italicize.ngrok-free.dev");
 })();
 window.getScribdApi = () => API_BASE;
 window.setScribdApi = (u) => {
