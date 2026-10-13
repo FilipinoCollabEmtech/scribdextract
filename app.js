@@ -1,8 +1,30 @@
 /* ScribdExtract Web frontend
  * Flow: submit → rewarded inline ad → POST /api/extract → poll → downloads
  * NO popups: never window.open. Ads render inline in .ad-box / #rewarded-ad-slot.
+ *
+ * Option B (local PC = server, Netlify = static UI):
+ *   Backend URL resolves as: ?api= query param > localStorage > window.SCRIBD_API_BASE > same origin.
+ *   Just open https://your-site.netlify.app/?api=https://<tunnel>.trycloudflare.com once —
+ *   it is remembered. Console: setScribdApi(url) / getScribdApi().
  */
-const API_BASE = ""; // same origin (server.py). e.g. "http://localhost:8000" if split.
+const API_BASE = (() => {
+  const clean = u => (u || "").trim().replace(/\/+$/, "");
+  try {
+    const q = new URLSearchParams(location.search).get("api");
+    if (q) { try { localStorage.setItem("scribd_api", clean(q)); } catch (_) {} return clean(q); }
+    const s = localStorage.getItem("scribd_api");
+    if (s) return clean(s);
+  } catch (_) {}
+  return clean(window.SCRIBD_API_BASE || "");
+})();
+window.getScribdApi = () => API_BASE;
+window.setScribdApi = (u) => {
+  try { localStorage.setItem("scribd_api", (u || "").trim().replace(/\/+$/, "")); } catch (_) {}
+  location.reload();
+};
+const apiUrl = (p) => API_BASE + p;
+// File hrefs may be absolute (split-host) or site-relative (same-origin).
+const absUrl = (h) => !h ? "#" : (/^https?:\/\//.test(h) ? h : (API_BASE || "") + h);
 const REWARD_SECONDS = 5; // match your ad network's rewarded duration
 
 const form = document.getElementById("extract-form");
@@ -99,7 +121,7 @@ async function runExtraction(url) {
   fill.style.width = "4%";
   try {
     // Try backend first, fall back to demo mode (offline preview).
-    const res = await fetch(API_BASE + "/api/extract", {
+    const res = await fetch(apiUrl("/api/extract"), {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url })
     });
@@ -108,13 +130,20 @@ async function runExtraction(url) {
     await pollJob(job.id);
   } catch (err) {
     console.warn("backend unavailable, demo mode:", err);
+    const onNetlify = !/^(localhost|127\.0\.0\.1|0\.0\.0\.0)/.test(location.hostname);
+    if (onNetlify && !API_BASE) {
+      setStatus("error", "No backend",
+        "This page is on Netlify but no backend is set. Open it once as ?api=YOUR_TUNNEL_URL — e.g. "
+        + location.origin + location.pathname + "?api=https://<name>.trycloudflare.com");
+      return;
+    }
     await demoProgress();
   }
 }
 
 async function pollJob(id) {
   for (;;) {
-    const r = await fetch(`${API_BASE}/api/status/${id}`);
+    const r = await fetch(apiUrl(`/api/status/${id}`));
     const j = await r.json();
     STEP_ORDER.forEach((s, i) => {
       markStep(s, i < j.done ? "done" : (i === j.done ? "active" : ""));
@@ -138,8 +167,14 @@ function wireResults(files) {
   const map = { "dl-pdf": files.pdf, "dl-text": files.textPdf, "dl-full": files.fullPdf, "dl-txt": files.txt };
   for (const [id, href] of Object.entries(map)) {
     const a = document.getElementById(id);
-    if (href) { a.href = href; a.removeAttribute("aria-disabled"); }
+    if (href) { a.href = absUrl(href); a.removeAttribute("aria-disabled"); }
     else { a.href = "#"; a.setAttribute("aria-disabled", "true"); }
+  }
+  if (API_BASE) {
+    try {
+      const host = new URL(API_BASE).host;
+      msg.textContent += ` (via ${host})`;
+    } catch (_) {}
   }
 }
 
