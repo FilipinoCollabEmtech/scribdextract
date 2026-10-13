@@ -53,7 +53,7 @@ def _cors_headers(resp):
     elif origin and origin.rstrip("/") in ALLOWED_ORIGINS:
         resp.headers["Access-Control-Allow-Origin"] = origin
     resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    resp.headers["Access-Control-Allow-Headers"] = "Content-Type, ngrok-skip-browser-warning"
     return resp
 
 

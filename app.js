@@ -120,8 +120,11 @@ async function runExtraction(url) {
   fill.style.width = "4%";
   try {
     // Try backend first, fall back to demo mode (offline preview).
+    // ngrok-skip-browser-warning: bypasses ngrok free's interstitial page
+    // for programmatic fetch() calls (harmless same-origin / direct).
     const res = await fetch(apiUrl("/api/extract"), {
-      method: "POST", headers: { "Content-Type": "application/json" },
+      method: "POST", headers: { "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true" },
       body: JSON.stringify({ url })
     });
     if (!res.ok) throw new Error("backend " + res.status);
@@ -142,7 +145,8 @@ async function runExtraction(url) {
 
 async function pollJob(id) {
   for (;;) {
-    const r = await fetch(apiUrl(`/api/status/${id}`));
+    const r = await fetch(apiUrl(`/api/status/${id}`),
+      { headers: { "ngrok-skip-browser-warning": "true" } });
     const j = await r.json();
     STEP_ORDER.forEach((s, i) => {
       markStep(s, i < j.done ? "done" : (i === j.done ? "active" : ""));
